@@ -5,20 +5,23 @@ abs_path_keys = []
 abs_hierarchy = {}
 is_list = type([])
 is_dict = type({})
+dict_stack = []
 
-def is_dict_recursive(dict_within,abs_hierarchy1,abs_path_keys):
-    for key in dict_within:
-        if is_dict == dict_within[key]:
-            k = abs_path_keys[-1]
-            k += ".{0}".format(key)
-            abs_path_keys.append(k)
-            is_dict_recursive(dict_within[key],abs_hierarchy1,abs_path_keys)
+def traverse_dict():
+    d = dict_stack[-1]
+    for key in d:
+        if type(d[key]) == is_dict:
+            dict_stack.append(d[key])
+            abs_path_keys.append(key)
+            traverse_dict()
         else:
-            print(key)
-            print(abs_path_keys[-1])
-            abs_hierarchy1[abs_path_keys[-1]]=dict_within[key]
-            abs_path_keys.pop()
-            return abs_hierarchy1
+            path_string = abs_path_keys[0]
+            for elements in abs_path_keys[1:]:
+                path_string+="."+elements
+            path_string += "."+key
+            abs_hierarchy[path_string] = d[key]
+    dict_stack.pop()
+    abs_path_keys.pop()
 
 def main():
     data = ''
@@ -26,27 +29,24 @@ def main():
         data = res.read()
     json_decoded = data.decode('utf-8')
     deser_json = json.loads(json_decoded)
-    pygron_data = []
-    # abs_path_keys = ["json"]
-    val = 0
-    for dicts1 in deser_json:
-        # abs_path = {}
-        for s in dicts1:
-            temp_path = "json[{0}].{1}".format(val,s)
-            abs_path_keys.append(temp_path)
-            if is_dict == type(dicts1[s]):
-                # abs_path_keys.append(s)
-                x = is_dict_recursive(dicts1[s],{},abs_path_keys)
-                for f in  x:
-                    abs_hierarchy[f]=x[f]
-                # for f in y:
-                #     abs_path_keys.append(f)
-            else:
-                abs_hierarchy[temp_path] = dicts1[s]
-            # d = "json[{2}]{0}.{1}".format(s,dicts1[s],val)
-            # print(d)
-            # pygron_data.append(d)
-        val += 1
+    if is_dict == type(deser_json):
+        abs_path_keys.append["json"]
+        dict_stack.append(deser_json)
+        traverse_dict()
+    elif is_list == type(deser_json):
+        len_deser = len(deser_json)
+        iter_var = 0
+        while iter_var < len_deser:
+            str_initial = "json[{0}]".format(iter_var)
+            abs_path_keys.append(str_initial)
+            if type(deser_json[iter_var]) == is_dict:
+                dict_stack.append(deser_json[iter_var])
+                traverse_dict()
+            if len(dict_stack) > 0:
+                dict_stack.clear()
+            if len(abs_path_keys) > 0:
+                abs_path_keys.clear()
+            iter_var+=1
     with open('ap.txt','w') as file:
         for key in abs_hierarchy:
             output_str = "{0} = {1}\n".format(key,abs_hierarchy[key])
