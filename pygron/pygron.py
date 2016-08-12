@@ -23,12 +23,8 @@ def traverse_dict():
     dict_stack.pop()
     abs_path_keys.pop()
 
-def main():
-    data = ''
-    with ur.urlopen("https://api.github.com/repos/akshbn/cream/commits") as res:
-        data = res.read()
-    json_decoded = data.decode('utf-8')
-    deser_json = json.loads(json_decoded)
+def main(json_data,output_to_file):
+    deser_json = json.loads(json_data)
     if is_dict == type(deser_json):
         abs_path_keys.append["json"]
         dict_stack.append(deser_json)
@@ -47,10 +43,29 @@ def main():
             if len(abs_path_keys) > 0:
                 abs_path_keys.clear()
             iter_var+=1
-    with open('ap.txt','w') as file:
+    if output_to_file:
+        with open("pygron_output.txt",'w') as output_file:
+            for key in abs_hierarchy:
+                output_str = "{0} = {1}\n".format(key,abs_hierarchy[key])
+                output_file.write(output_str)
+        print("Output written into pygron_output.txt")
+    else:
         for key in abs_hierarchy:
-            output_str = "{0} = {1}\n".format(key,abs_hierarchy[key])
-            file.write(output_str)
+            output_str = "{0} = {1}".format(key,abs_hierarchy[key])
+            print(output_str)
+
+def json_url(url_to_get,output_to_file):
+    data = ''
+    with ur.urlopen(url_to_get) as res:
+        data = res.read()
+    json_decoded = data.decode('utf-8')
+    main(json_decoded,output_to_file)
+
+def json_file(file_to_get,output_to_file):
+    data = ''
+    with open(file_to_get,'r') as files:
+        data = files.read()
+    main(data,output_to_file)
 
 if __name__ == '__main__':
     main()
