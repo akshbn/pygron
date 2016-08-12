@@ -1,5 +1,5 @@
 import argparse
-from pygron import json_url,json_file
+from .pygron import json_url,json_file
 
 def main():
     parser = argparse.ArgumentParser()
@@ -21,5 +21,5 @@ def main():
         else:
             json_url(cli_arg.url,False)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
