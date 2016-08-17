@@ -43,16 +43,19 @@ def main(json_data,output_to_file):
             if len(abs_path_keys) > 0:
                 abs_path_keys.clear()
             iter_var+=1
+    output_list = []
+    for key in abs_hierarchy:
+        output_str = "{0} = {1}".format(key,abs_hierarchy[key])
+        output_list.append(output_str)
+    sorted_output = sorted(output_list)
     if output_to_file:
         with open("pygron_output.txt",'w') as output_file:
-            for key in abs_hierarchy:
-                output_str = "{0} = {1}\n".format(key,abs_hierarchy[key])
+            for element in sorted_output:
                 output_file.write(output_str)
         print("Output written into pygron_output.txt")
     else:
-        for key in abs_hierarchy:
-            output_str = "{0} = {1}".format(key,abs_hierarchy[key])
-            print(output_str)
+        for element in sorted_output:
+            print(element)
 
 def json_url(url_to_get,output_to_file):
     data = ''
