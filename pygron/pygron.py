@@ -26,7 +26,7 @@ def traverse_dict():
 def main(json_data,output_to_file):
     deser_json = json.loads(json_data)
     if is_dict == type(deser_json):
-        abs_path_keys.append["json"]
+        abs_path_keys.append("json")
         dict_stack.append(deser_json)
         traverse_dict()
     elif is_list == type(deser_json):
