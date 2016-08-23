@@ -6,6 +6,7 @@ abs_hierarchy = {}
 is_list = type([])
 is_dict = type({})
 dict_stack = []
+inorder_paths = []
 
 def traverse_dict():
     d = dict_stack[-1]
@@ -20,6 +21,7 @@ def traverse_dict():
                 path_string+="."+elements
             path_string += "."+key
             abs_hierarchy[path_string] = d[key]
+            inorder_paths.append(path_string)
     dict_stack.pop()
     abs_path_keys.pop()
 
@@ -43,15 +45,14 @@ def main(json_data,output_to_file):
             if len(abs_path_keys) > 0:
                 abs_path_keys.clear()
             iter_var+=1
-    output_list = []
-    for key in abs_hierarchy:
+    sorted_output = []
+    for key in inorder_paths:
         output_str = "{0} = {1}".format(key,abs_hierarchy[key])
-        output_list.append(output_str)
-    sorted_output = sorted(output_list)
+        sorted_output.append(output_str)
     if output_to_file:
         with open("pygron_output.txt",'w') as output_file:
             for element in sorted_output:
-                output_file.write(output_str)
+                output_file.write(element+'\n')
         print("Output written into pygron_output.txt")
     else:
         for element in sorted_output:
