@@ -3,7 +3,7 @@ from .pygron import json_url,json_file
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v","--version",action="version",version="%(prog)s 0.2.9",help="Displays the version of pygron in use")
+    parser.add_argument("-v","--version",action="version",version="%(prog)s 0.3.1",help="Displays the version of pygron in use")
     parser.add_argument("-f","--file",action="store_true",help="Tells pygron to read json from a file")
     parser.add_argument("url",type=str,help="The url from which the json is obtained.\
     When -f is provided the path to the json file is required")

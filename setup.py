@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
 name = 'pygron',
-version = '0.2.9',
+version = '0.3.1',
 license = 'MIT',
 author = 'Akshay B N',
 description = 'Helps JSON become greppable',
