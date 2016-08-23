@@ -18,6 +18,8 @@ Install pygron :
 ## Usage and examples
 pygron converts json into a set of assignment statements. The left hand side of the statement contains the path to the attribute from the root of the json object. The  right hand side is the value of that attribute.
 
+`$ pygron <url>`
+
 <pre>
 $ pygron https://api.github.com/repos/akshbn/pygron/commits | grep "commit.author"
   json[0].commit.author.date = 2016-08-17T11:12:41Z
@@ -39,5 +41,9 @@ To write output to a file:
 `$ pygron <url> -w`
 
 pygron will write into a file called *pygron_output.txt* in the current working directory.
+
+To learn more about the command line options available use:
+
+`$ pygron -h`
 
 **Note:** This is a python implementation of [gron](https://github.com/tomnomnom/gron).
