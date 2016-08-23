@@ -1,7 +1,21 @@
 # pygron
 
-`pygron` helps you easily grep through JSON.
+`pygron` helps you easily analyze and grep through JSON.
 
+## Installation
+It is advisable to install `pygron` in a virtual environment.
+
+Clone this repo using the following command:
+<pre>
+$ git clone https://github.com/akshbn/pygron
+$ cd pygron
+</pre>
+
+Install pygron :
+
+`python setup.py install`
+
+## Usage and examples
 pygron converts json into a set of assignment statements. The left hand side of the statement contains the path to the attribute from the root of the json object. The  right hand side is the value of that attribute.
 
 <pre>
