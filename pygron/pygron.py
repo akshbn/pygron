@@ -15,6 +15,15 @@ def traverse_dict():
             dict_stack.append(d[key])
             abs_path_keys.append(key)
             traverse_dict()
+        elif type(d[key]) == is_list:
+            iter_var = 0
+            for list_element in d[key]:
+                if type(list_element) == is_dict:
+                    dict_stack.append(list_element)
+                    str_list_path = "{0}[{1}]".format(key,iter_var)
+                    abs_path_keys.append(str_list_path)
+                    iter_var+=1
+                    traverse_dict()
         else:
             path_string = abs_path_keys[0]
             for elements in abs_path_keys[1:]:
@@ -72,4 +81,4 @@ def json_file(file_to_get,output_to_file):
     main(data,output_to_file)
 
 if __name__ == '__main__':
-    main()
+    json_url("https://api.github.com/repos/akshbn/pygron/commits",True)
