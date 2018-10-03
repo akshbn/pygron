@@ -42,8 +42,6 @@ To write output to a file:
 
 pygron will write into a file called *pygron_output.txt* in the current working directory.
 
-To learn more about the command line options available use:
-
-`$ pygron -h`
+Use `$ pygron -h` to learn more about the commandline options available.
 
 **Note:** This is a python implementation of [gron](https://github.com/tomnomnom/gron).
